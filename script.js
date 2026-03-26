@@ -21,7 +21,7 @@ function randomStarShape() {
 }
 
 function randomStarFlareStrength(radius) {
-  return radius > 0.9 && Math.random() < 0.08 ? random(1.1, 1.7) : 0;
+  return radius > 1.02 && Math.random() < 0.045 ? random(1.08, 1.55) : 0;
 }
 
 function resize() {
@@ -56,6 +56,8 @@ function createStar() {
     pulseOffset: random(0, Math.PI * 2),
     shape: randomStarShape(),
     flareStrength: randomStarFlareStrength(radius),
+    flareRotationBase: random(-0.16, 0.16),
+    flareRotationSpeed: random(0.00008, 0.0002) * (Math.random() < 0.5 ? -1 : 1),
   };
 }
 
@@ -70,6 +72,8 @@ function respawnStar(star) {
   star.pulseOffset = random(0, Math.PI * 2);
   star.shape = randomStarShape();
   star.flareStrength = randomStarFlareStrength(star.r);
+  star.flareRotationBase = random(-0.16, 0.16);
+  star.flareRotationSpeed = random(0.00008, 0.0002) * (Math.random() < 0.5 ? -1 : 1);
 }
 
 function spawnMeteor(now) {
@@ -106,8 +110,9 @@ function drawBackgroundGlow() {
   ctx.fillRect(0, 0, width, height);
 }
 
-function drawStarFlare(star, flareIntensity) {
+function drawStarFlare(star, flareIntensity, time) {
   const glowRadius = star.r * (12 + star.flareStrength * 13);
+  const rotation = star.flareRotationBase + time * star.flareRotationSpeed;
   const glow = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, glowRadius);
 
   glow.addColorStop(0, `rgba(255, 255, 255, ${flareIntensity * 0.2})`);
@@ -125,6 +130,7 @@ function drawStarFlare(star, flareIntensity) {
 
   ctx.save();
   ctx.translate(star.x, star.y);
+  ctx.rotate(rotation);
   ctx.scale(2.4, 0.42);
   const streakGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, glowRadius * 0.72);
   streakGradient.addColorStop(0, `rgba(255, 255, 255, ${flareIntensity * 0.13})`);
@@ -136,8 +142,13 @@ function drawStarFlare(star, flareIntensity) {
   ctx.fill();
   ctx.restore();
 
-  const ghostX = star.x + glowRadius * 0.22;
-  const ghostY = star.y - glowRadius * 0.04;
+  ctx.save();
+  ctx.translate(star.x, star.y);
+  ctx.rotate(rotation * 0.72);
+  const ghostOffsetX = glowRadius * 0.22;
+  const ghostOffsetY = -glowRadius * 0.04;
+  const ghostX = ghostOffsetX;
+  const ghostY = ghostOffsetY;
   const ghost = ctx.createRadialGradient(ghostX, ghostY, 0, ghostX, ghostY, glowRadius * 0.52);
   ghost.addColorStop(0, `rgba(212, 232, 255, ${flareIntensity * 0.08})`);
   ghost.addColorStop(0.55, `rgba(164, 201, 255, ${flareIntensity * 0.03})`);
@@ -150,18 +161,19 @@ function drawStarFlare(star, flareIntensity) {
 
   ctx.beginPath();
   ctx.fillStyle = `rgba(255, 255, 255, ${flareIntensity * 0.09})`;
-  ctx.arc(star.x, star.y, star.r * (2.1 + star.flareStrength * 0.9), 0, Math.PI * 2);
+  ctx.arc(0, 0, star.r * (2.1 + star.flareStrength * 0.9), 0, Math.PI * 2);
   ctx.fill();
 
   ctx.beginPath();
   ctx.strokeStyle = `rgba(214, 235, 255, ${flareIntensity * 0.08})`;
   ctx.lineWidth = 0.26 + star.flareStrength * 0.1;
   ctx.lineCap = "round";
-  ctx.moveTo(star.x - glowRadius * 0.4, star.y);
-  ctx.lineTo(star.x + glowRadius * 0.4, star.y);
-  ctx.moveTo(star.x, star.y - glowRadius * 0.58);
-  ctx.lineTo(star.x, star.y + glowRadius * 0.58);
+  ctx.moveTo(-glowRadius * 0.4, 0);
+  ctx.lineTo(glowRadius * 0.4, 0);
+  ctx.moveTo(0, -glowRadius * 0.58);
+  ctx.lineTo(0, glowRadius * 0.58);
   ctx.stroke();
+  ctx.restore();
 
   ctx.restore();
 }
@@ -177,17 +189,19 @@ function drawStars(time, delta) {
     const envelope = Math.sin(star.lifeProgress * Math.PI);
     const pulse = 0.82 + Math.sin(time * star.pulseSpeed + star.pulseOffset) * 0.18;
     const alpha = Math.max(0, Math.min(0.92, envelope * star.maxAlpha * pulse));
-    const flareWindow = Math.max(0, Math.min(1, (envelope - 0.7) / 0.3));
-    const flarePulse = Math.max(0, Math.min(1, (pulse - 0.84) / 0.16));
+    const flareWindow = Math.max(0, Math.min(1, (envelope - 0.5) / 0.5));
+    const flareHold = Math.pow(Math.sin(flareWindow * Math.PI), 0.62);
+    const flarePulse = 0.76 + Math.sin(time * star.pulseSpeed * 0.42 + star.pulseOffset * 0.7) * 0.24;
+    const flarePulseGate = Math.max(0, Math.min(1, (flarePulse - 0.56) / 0.44));
     const flareIntensity =
-      star.flareStrength * Math.pow(flareWindow, 0.82) * Math.pow(flarePulse, 0.78);
+      star.flareStrength * flareHold * Math.pow(flarePulseGate, 0.45);
 
     if (alpha <= 0.01) {
       continue;
     }
 
     if (flareIntensity > 0.01) {
-      drawStarFlare(star, flareIntensity);
+      drawStarFlare(star, flareIntensity, time);
     }
 
     ctx.beginPath();
