@@ -21,7 +21,7 @@ function randomStarShape() {
 }
 
 function randomStarFlareStrength(radius) {
-  return radius > 1.02 && Math.random() < 0.045 ? random(1.08, 1.55) : 0;
+  return radius > 1.14 && Math.random() < 0.025 ? random(1.06, 1.42) : 0;
 }
 
 function resize() {
@@ -192,7 +192,7 @@ function drawStars(time, delta) {
     const flareWindow = Math.max(0, Math.min(1, (envelope - 0.5) / 0.5));
     const flareHold = Math.pow(Math.sin(flareWindow * Math.PI), 0.62);
     const flarePulse = 0.76 + Math.sin(time * star.pulseSpeed * 0.42 + star.pulseOffset * 0.7) * 0.24;
-    const flarePulseGate = Math.max(0, Math.min(1, (flarePulse - 0.56) / 0.44));
+    const flarePulseGate = Math.max(0, Math.min(1, (flarePulse - 0.62) / 0.38));
     const flareIntensity =
       star.flareStrength * flareHold * Math.pow(flarePulseGate, 0.45);
 
