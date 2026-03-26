@@ -115,9 +115,9 @@ function drawStarFlare(star, flareIntensity, time) {
   const rotation = star.flareRotationBase + time * star.flareRotationSpeed;
   const glow = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, glowRadius);
 
-  glow.addColorStop(0, `rgba(255, 255, 255, ${flareIntensity * 0.2})`);
-  glow.addColorStop(0.2, `rgba(198, 225, 255, ${flareIntensity * 0.12})`);
-  glow.addColorStop(0.56, `rgba(166, 212, 255, ${flareIntensity * 0.05})`);
+  glow.addColorStop(0, `rgba(255, 255, 255, ${flareIntensity * 0.14})`);
+  glow.addColorStop(0.28, `rgba(198, 225, 255, ${flareIntensity * 0.095})`);
+  glow.addColorStop(0.68, `rgba(166, 212, 255, ${flareIntensity * 0.038})`);
   glow.addColorStop(1, "rgba(166, 212, 255, 0)");
 
   ctx.save();
@@ -132,9 +132,9 @@ function drawStarFlare(star, flareIntensity, time) {
   ctx.translate(star.x, star.y);
   ctx.rotate(rotation);
   ctx.scale(2.4, 0.42);
-  const streakGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, glowRadius * 0.72);
-  streakGradient.addColorStop(0, `rgba(255, 255, 255, ${flareIntensity * 0.13})`);
-  streakGradient.addColorStop(0.34, `rgba(176, 214, 255, ${flareIntensity * 0.08})`);
+  const streakGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, glowRadius * 0.86);
+  streakGradient.addColorStop(0, `rgba(255, 255, 255, ${flareIntensity * 0.085})`);
+  streakGradient.addColorStop(0.42, `rgba(176, 214, 255, ${flareIntensity * 0.055})`);
   streakGradient.addColorStop(1, "rgba(176, 214, 255, 0)");
   ctx.beginPath();
   ctx.fillStyle = streakGradient;
@@ -150,8 +150,8 @@ function drawStarFlare(star, flareIntensity, time) {
   const ghostX = ghostOffsetX;
   const ghostY = ghostOffsetY;
   const ghost = ctx.createRadialGradient(ghostX, ghostY, 0, ghostX, ghostY, glowRadius * 0.52);
-  ghost.addColorStop(0, `rgba(212, 232, 255, ${flareIntensity * 0.08})`);
-  ghost.addColorStop(0.55, `rgba(164, 201, 255, ${flareIntensity * 0.03})`);
+  ghost.addColorStop(0, `rgba(212, 232, 255, ${flareIntensity * 0.055})`);
+  ghost.addColorStop(0.68, `rgba(164, 201, 255, ${flareIntensity * 0.022})`);
   ghost.addColorStop(1, "rgba(164, 201, 255, 0)");
 
   ctx.beginPath();
@@ -160,13 +160,13 @@ function drawStarFlare(star, flareIntensity, time) {
   ctx.fill();
 
   ctx.beginPath();
-  ctx.fillStyle = `rgba(255, 255, 255, ${flareIntensity * 0.09})`;
+  ctx.fillStyle = `rgba(255, 255, 255, ${flareIntensity * 0.06})`;
   ctx.arc(0, 0, star.r * (2.1 + star.flareStrength * 0.9), 0, Math.PI * 2);
   ctx.fill();
 
   ctx.beginPath();
-  ctx.strokeStyle = `rgba(214, 235, 255, ${flareIntensity * 0.08})`;
-  ctx.lineWidth = 0.26 + star.flareStrength * 0.1;
+  ctx.strokeStyle = `rgba(214, 235, 255, ${flareIntensity * 0.04})`;
+  ctx.lineWidth = 0.22 + star.flareStrength * 0.07;
   ctx.lineCap = "round";
   ctx.moveTo(-glowRadius * 0.4, 0);
   ctx.lineTo(glowRadius * 0.4, 0);
