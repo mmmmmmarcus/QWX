@@ -159,9 +159,14 @@ function drawStarFlare(star, flareIntensity, time) {
   ctx.arc(ghostX, ghostY, glowRadius * 0.52, 0, Math.PI * 2);
   ctx.fill();
 
+  const coreRadius = star.r * (2.9 + star.flareStrength * 1.15);
+  const coreGlow = ctx.createRadialGradient(0, 0, 0, 0, 0, coreRadius);
+  coreGlow.addColorStop(0, `rgba(255, 255, 255, ${flareIntensity * 0.07})`);
+  coreGlow.addColorStop(0.38, `rgba(235, 244, 255, ${flareIntensity * 0.05})`);
+  coreGlow.addColorStop(1, "rgba(235, 244, 255, 0)");
   ctx.beginPath();
-  ctx.fillStyle = `rgba(255, 255, 255, ${flareIntensity * 0.06})`;
-  ctx.arc(0, 0, star.r * (2.1 + star.flareStrength * 0.9), 0, Math.PI * 2);
+  ctx.fillStyle = coreGlow;
+  ctx.arc(0, 0, coreRadius, 0, Math.PI * 2);
   ctx.fill();
 
   ctx.beginPath();
