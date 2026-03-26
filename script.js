@@ -111,13 +111,13 @@ function drawBackgroundGlow() {
 }
 
 function drawStarFlare(star, flareIntensity, time) {
-  const glowRadius = star.r * (12 + star.flareStrength * 13);
+  const glowRadius = star.r * (13.5 + star.flareStrength * 14.5);
   const rotation = star.flareRotationBase + time * star.flareRotationSpeed;
   const glow = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, glowRadius);
 
-  glow.addColorStop(0, `rgba(255, 255, 255, ${flareIntensity * 0.14})`);
-  glow.addColorStop(0.28, `rgba(198, 225, 255, ${flareIntensity * 0.095})`);
-  glow.addColorStop(0.68, `rgba(166, 212, 255, ${flareIntensity * 0.038})`);
+  glow.addColorStop(0, `rgba(255, 255, 255, ${flareIntensity * 0.1})`);
+  glow.addColorStop(0.36, `rgba(198, 225, 255, ${flareIntensity * 0.075})`);
+  glow.addColorStop(0.78, `rgba(166, 212, 255, ${flareIntensity * 0.03})`);
   glow.addColorStop(1, "rgba(166, 212, 255, 0)");
 
   ctx.save();
@@ -131,10 +131,10 @@ function drawStarFlare(star, flareIntensity, time) {
   ctx.save();
   ctx.translate(star.x, star.y);
   ctx.rotate(rotation);
-  ctx.scale(2.4, 0.42);
-  const streakGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, glowRadius * 0.86);
-  streakGradient.addColorStop(0, `rgba(255, 255, 255, ${flareIntensity * 0.085})`);
-  streakGradient.addColorStop(0.42, `rgba(176, 214, 255, ${flareIntensity * 0.055})`);
+  ctx.scale(2.55, 0.46);
+  const streakGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, glowRadius * 0.98);
+  streakGradient.addColorStop(0, `rgba(255, 255, 255, ${flareIntensity * 0.06})`);
+  streakGradient.addColorStop(0.5, `rgba(176, 214, 255, ${flareIntensity * 0.04})`);
   streakGradient.addColorStop(1, "rgba(176, 214, 255, 0)");
   ctx.beginPath();
   ctx.fillStyle = streakGradient;
@@ -149,9 +149,9 @@ function drawStarFlare(star, flareIntensity, time) {
   const ghostOffsetY = -glowRadius * 0.04;
   const ghostX = ghostOffsetX;
   const ghostY = ghostOffsetY;
-  const ghost = ctx.createRadialGradient(ghostX, ghostY, 0, ghostX, ghostY, glowRadius * 0.52);
-  ghost.addColorStop(0, `rgba(212, 232, 255, ${flareIntensity * 0.055})`);
-  ghost.addColorStop(0.68, `rgba(164, 201, 255, ${flareIntensity * 0.022})`);
+  const ghost = ctx.createRadialGradient(ghostX, ghostY, 0, ghostX, ghostY, glowRadius * 0.62);
+  ghost.addColorStop(0, `rgba(212, 232, 255, ${flareIntensity * 0.04})`);
+  ghost.addColorStop(0.74, `rgba(164, 201, 255, ${flareIntensity * 0.018})`);
   ghost.addColorStop(1, "rgba(164, 201, 255, 0)");
 
   ctx.beginPath();
@@ -159,10 +159,10 @@ function drawStarFlare(star, flareIntensity, time) {
   ctx.arc(ghostX, ghostY, glowRadius * 0.52, 0, Math.PI * 2);
   ctx.fill();
 
-  const coreRadius = star.r * (2.9 + star.flareStrength * 1.15);
+  const coreRadius = star.r * (3.4 + star.flareStrength * 1.35);
   const coreGlow = ctx.createRadialGradient(0, 0, 0, 0, 0, coreRadius);
-  coreGlow.addColorStop(0, `rgba(255, 255, 255, ${flareIntensity * 0.07})`);
-  coreGlow.addColorStop(0.38, `rgba(235, 244, 255, ${flareIntensity * 0.05})`);
+  coreGlow.addColorStop(0, `rgba(255, 255, 255, ${flareIntensity * 0.055})`);
+  coreGlow.addColorStop(0.46, `rgba(235, 244, 255, ${flareIntensity * 0.04})`);
   coreGlow.addColorStop(1, "rgba(235, 244, 255, 0)");
   ctx.beginPath();
   ctx.fillStyle = coreGlow;
@@ -170,8 +170,8 @@ function drawStarFlare(star, flareIntensity, time) {
   ctx.fill();
 
   ctx.beginPath();
-  ctx.strokeStyle = `rgba(214, 235, 255, ${flareIntensity * 0.04})`;
-  ctx.lineWidth = 0.22 + star.flareStrength * 0.07;
+  ctx.strokeStyle = `rgba(214, 235, 255, ${flareIntensity * 0.024})`;
+  ctx.lineWidth = 0.18 + star.flareStrength * 0.05;
   ctx.lineCap = "round";
   ctx.moveTo(-glowRadius * 0.4, 0);
   ctx.lineTo(glowRadius * 0.4, 0);
