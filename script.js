@@ -80,7 +80,7 @@ function spawnMeteor(now) {
   meteors.push({
     x: random(width * 0.12, width * 0.88),
     y: random(-60, height * 0.22),
-    length: random(140, 235),
+    length: random(280, 470),
     speed: random(5.4, 9.2),
     angle: random(Math.PI / 5, Math.PI / 3.8),
     life: 1,
