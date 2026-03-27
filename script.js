@@ -106,11 +106,11 @@ const DEFAULT_CONFIG = {
   mobileGrainOpacity: 0.42,
   mobileCanvasSaturate: 0.96,
   mobileCanvasContrast: 0.985,
-  galaxyOpacity: 0.28,
+  galaxyOpacity: 0,
   galaxyAngle: -0.72,
   galaxyWidth: 0.24,
-  galaxyCoreStrength: 0.085,
-  galaxyDustStrength: 0.055,
+  galaxyCoreStrength: 0,
+  galaxyDustStrength: 0,
   galaxyDrift: 0.000018,
 };
 
