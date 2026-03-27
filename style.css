@@ -25,16 +25,33 @@ body {
     linear-gradient(180deg, #1c1c1c 0%, #1c1c1c 100%);
 }
 
+body::selection {
+  background: transparent;
+}
+
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   background-image:
+    linear-gradient(
+      118deg,
+      transparent 14%,
+      rgba(122, 144, 196, 0.012) 28%,
+      rgba(168, 182, 214, 0.024) 38%,
+      rgba(214, 222, 240, 0.034) 46%,
+      rgba(160, 170, 206, 0.022) 54%,
+      rgba(108, 122, 166, 0.012) 62%,
+      transparent 76%
+    ),
+    radial-gradient(circle at 34% 46%, rgba(208, 220, 245, 0.03), transparent 16%),
+    radial-gradient(circle at 56% 58%, rgba(180, 193, 228, 0.022), transparent 19%),
+    radial-gradient(circle at 63% 41%, rgba(120, 138, 184, 0.016), transparent 14%),
     radial-gradient(rgba(255, 255, 255, 0.14) 0.7px, transparent 0.7px),
     radial-gradient(rgba(255, 255, 255, 0.08) 0.5px, transparent 0.5px);
-  background-position: 0 0, 24px 24px;
-  background-size: 48px 48px, 72px 72px;
-  opacity: 0.09;
+  background-position: center center, center center, center center, center center, 0 0, 24px 24px;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 48px 48px, 72px 72px;
+  opacity: 0.11;
   pointer-events: none;
 }
 
@@ -43,12 +60,14 @@ body::after {
   position: fixed;
   inset: 0;
   background:
+    radial-gradient(circle at 42% 48%, rgba(228, 235, 248, 0.018), transparent 11%),
+    radial-gradient(circle at 58% 54%, rgba(202, 214, 240, 0.014), transparent 14%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E"),
     linear-gradient(180deg, rgba(0, 0, 0, 0.2), transparent 28%, transparent 72%, rgba(0, 0, 0, 0.24));
-  background-size: 180px 180px, auto;
-  background-position: 0 0, 0 0;
+  background-size: 100% 100%, 100% 100%, 180px 180px, auto;
+  background-position: center center, center center, 0 0, 0 0;
   mix-blend-mode: soft-light;
-  opacity: 0.52;
+  opacity: 0.5;
   animation: grainShift 7s steps(8) infinite;
   pointer-events: none;
 }
