@@ -492,53 +492,73 @@ function drawGalaxy(time) {
   }
 
   const cx = width * 0.5;
-  const cy = height * 0.5;
-  const cosA = Math.cos(CONFIG.galaxyAngle);
-  const sinA = Math.sin(CONFIG.galaxyAngle);
+  const cy = height * 0.52;
   const drift = time * CONFIG.galaxyDrift;
+  const major = Math.max(width, height) * 0.86;
+  const minor = Math.max(width, height) * CONFIG.galaxyWidth * 0.52;
 
   ctx.save();
   ctx.translate(cx, cy);
   ctx.rotate(CONFIG.galaxyAngle);
+  ctx.globalCompositeOperation = "screen";
 
-  const bandWidth = Math.max(width, height) * CONFIG.galaxyWidth;
-  const bandLength = Math.max(width, height) * 1.25;
+  const band = ctx.createLinearGradient(-major, 0, major, 0);
+  band.addColorStop(0, "rgba(120, 140, 176, 0)");
+  band.addColorStop(0.12, `rgba(136, 154, 192, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.18})`);
+  band.addColorStop(0.24, `rgba(188, 202, 228, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.5})`);
+  band.addColorStop(0.33, `rgba(228, 234, 246, ${CONFIG.galaxyCoreStrength * CONFIG.galaxyOpacity * 0.75})`);
+  band.addColorStop(0.44, `rgba(174, 188, 220, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.28})`);
+  band.addColorStop(0.58, `rgba(220, 228, 244, ${CONFIG.galaxyCoreStrength * CONFIG.galaxyOpacity * 0.82})`);
+  band.addColorStop(0.68, `rgba(168, 182, 214, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.26})`);
+  band.addColorStop(0.82, `rgba(198, 208, 232, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.36})`);
+  band.addColorStop(1, "rgba(120, 140, 176, 0)");
 
-  const core = ctx.createRadialGradient(0, drift * 120, 0, 0, drift * 120, bandLength * 0.72);
-  core.addColorStop(0, `rgba(220, 228, 245, ${CONFIG.galaxyCoreStrength * CONFIG.galaxyOpacity})`);
-  core.addColorStop(0.24, `rgba(185, 198, 226, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity})`);
-  core.addColorStop(0.55, `rgba(120, 136, 176, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.38})`);
-  core.addColorStop(1, "rgba(90, 110, 150, 0)");
-
-  ctx.scale(1, CONFIG.galaxyWidth);
+  ctx.save();
+  ctx.scale(1.04, Math.max(0.16, CONFIG.galaxyWidth));
   ctx.beginPath();
-  ctx.fillStyle = core;
-  ctx.arc(0, 0, bandLength, 0, Math.PI * 2);
+  ctx.fillStyle = band;
+  ctx.ellipse(0, Math.sin(drift * 42000) * 8, major, minor, 0, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
 
-  ctx.save();
-  ctx.globalCompositeOperation = "screen";
-  ctx.translate(cx, cy);
-  ctx.rotate(CONFIG.galaxyAngle);
+  const knots = [
+    { x: -0.34, y: -0.05, rx: 0.22, ry: 0.16, a: 0.82 },
+    { x: -0.08, y: 0.02, rx: 0.18, ry: 0.12, a: 0.54 },
+    { x: 0.14, y: -0.03, rx: 0.24, ry: 0.15, a: 0.9 },
+    { x: 0.36, y: 0.04, rx: 0.16, ry: 0.11, a: 0.48 },
+  ];
 
-  const dustA = ctx.createRadialGradient(-width * 0.16, -height * 0.03, 0, -width * 0.16, -height * 0.03, bandWidth * 1.35);
-  dustA.addColorStop(0, `rgba(230, 236, 248, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.7})`);
-  dustA.addColorStop(0.45, `rgba(172, 186, 220, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.42})`);
-  dustA.addColorStop(1, "rgba(150, 168, 214, 0)");
-  ctx.beginPath();
-  ctx.fillStyle = dustA;
-  ctx.ellipse(-width * 0.08, 0, width * 0.42, bandWidth * 0.52, 0.08, 0, Math.PI * 2);
-  ctx.fill();
+  for (const knot of knots) {
+    const gx = major * knot.x;
+    const gy = minor * knot.y;
+    const grad = ctx.createRadialGradient(gx, gy, 0, gx, gy, major * knot.rx);
+    grad.addColorStop(0, `rgba(236, 240, 250, ${CONFIG.galaxyCoreStrength * CONFIG.galaxyOpacity * knot.a})`);
+    grad.addColorStop(0.38, `rgba(196, 208, 232, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * knot.a * 0.62})`);
+    grad.addColorStop(1, "rgba(150, 166, 206, 0)");
 
-  const dustB = ctx.createRadialGradient(width * 0.18, height * 0.06, 0, width * 0.18, height * 0.06, bandWidth * 1.4);
-  dustB.addColorStop(0, `rgba(214, 225, 245, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.56})`);
-  dustB.addColorStop(0.5, `rgba(160, 178, 214, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.3})`);
-  dustB.addColorStop(1, "rgba(140, 160, 198, 0)");
-  ctx.beginPath();
-  ctx.fillStyle = dustB;
-  ctx.ellipse(width * 0.14, height * 0.02, width * 0.36, bandWidth * 0.46, -0.12, 0, Math.PI * 2);
-  ctx.fill();
+    ctx.save();
+    ctx.scale(1, Math.max(0.18, CONFIG.galaxyWidth * knot.ry / knot.rx));
+    ctx.beginPath();
+    ctx.fillStyle = grad;
+    ctx.arc(gx, gy / Math.max(0.18, CONFIG.galaxyWidth * knot.ry / knot.rx), major * knot.rx, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  for (let i = 0; i < 18; i += 1) {
+    const t = i / 17;
+    const x = -major * 0.78 + major * 1.56 * t;
+    const y = Math.sin(t * Math.PI * 3 + drift * 18000) * minor * 0.16;
+    const dust = ctx.createRadialGradient(x, y, 0, x, y, major * 0.06);
+    const dustAlpha = CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * (0.12 + (i % 4) * 0.05);
+    dust.addColorStop(0, `rgba(232, 236, 246, ${dustAlpha})`);
+    dust.addColorStop(0.42, `rgba(188, 198, 224, ${dustAlpha * 0.45})`);
+    dust.addColorStop(1, "rgba(160, 176, 216, 0)");
+    ctx.beginPath();
+    ctx.fillStyle = dust;
+    ctx.arc(x, y, major * 0.06, 0, Math.PI * 2);
+    ctx.fill();
+  }
 
   ctx.restore();
 }
