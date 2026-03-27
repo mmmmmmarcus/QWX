@@ -20,6 +20,29 @@ function randomStarShape() {
   return Math.random() < 0.28 ? "diamond" : "circle";
 }
 
+function randomStarTone() {
+  const value = Math.random();
+
+  if (value < 0.18) {
+    return {
+      fill: [255, 243, 238],
+      line: [255, 223, 214],
+    };
+  }
+
+  if (value < 0.36) {
+    return {
+      fill: [239, 247, 255],
+      line: [205, 225, 255],
+    };
+  }
+
+  return {
+    fill: [255, 255, 255],
+    line: [214, 230, 255],
+  };
+}
+
 function randomStarFlareStrength(radius) {
   return radius > 1.14 && Math.random() < 0.025 ? random(1.06, 1.42) : 0;
 }
@@ -55,6 +78,7 @@ function createStar() {
     pulseSpeed: random(0.0018, 0.0032),
     pulseOffset: random(0, Math.PI * 2),
     shape: randomStarShape(),
+    tone: randomStarTone(),
     flareStrength: randomStarFlareStrength(radius),
     flareRotationBase: random(-0.16, 0.16),
     flareRotationSpeed: random(0.00008, 0.0002) * (Math.random() < 0.5 ? -1 : 1),
@@ -71,6 +95,7 @@ function respawnStar(star) {
   star.pulseSpeed = random(0.0018, 0.0032);
   star.pulseOffset = random(0, Math.PI * 2);
   star.shape = randomStarShape();
+  star.tone = randomStarTone();
   star.flareStrength = randomStarFlareStrength(star.r);
   star.flareRotationBase = random(-0.16, 0.16);
   star.flareRotationSpeed = random(0.00008, 0.0002) * (Math.random() < 0.5 ? -1 : 1);
@@ -209,8 +234,11 @@ function drawStars(time, delta) {
       drawStarFlare(star, flareIntensity, time);
     }
 
+    const [fillR, fillG, fillB] = star.tone.fill;
+    const [lineR, lineG, lineB] = star.tone.line;
+
     ctx.beginPath();
-    ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+    ctx.fillStyle = `rgba(${fillR}, ${fillG}, ${fillB}, ${alpha})`;
 
     if (star.shape === "diamond") {
       ctx.moveTo(star.x, star.y - star.r * 1.3);
@@ -226,7 +254,7 @@ function drawStars(time, delta) {
 
     if (star.shape === "circle" && star.r > 1.25) {
       ctx.beginPath();
-      ctx.strokeStyle = `rgba(173, 216, 255, ${alpha * 0.18})`;
+      ctx.strokeStyle = `rgba(${lineR}, ${lineG}, ${lineB}, ${alpha * 0.18})`;
       ctx.lineWidth = 0.45;
       ctx.moveTo(star.x - star.r * 2.2, star.y);
       ctx.lineTo(star.x + star.r * 2.2, star.y);
