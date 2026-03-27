@@ -106,11 +106,11 @@ const DEFAULT_CONFIG = {
   mobileGrainOpacity: 0.42,
   mobileCanvasSaturate: 0.96,
   mobileCanvasContrast: 0.985,
-  galaxyOpacity: 0.16,
+  galaxyOpacity: 0.28,
   galaxyAngle: -0.72,
-  galaxyWidth: 0.34,
-  galaxyCoreStrength: 0.05,
-  galaxyDustStrength: 0.032,
+  galaxyWidth: 0.24,
+  galaxyCoreStrength: 0.085,
+  galaxyDustStrength: 0.055,
   galaxyDrift: 0.000018,
 };
 
@@ -494,8 +494,8 @@ function drawGalaxy(time) {
   const cx = width * 0.5;
   const cy = height * 0.52;
   const drift = time * CONFIG.galaxyDrift;
-  const major = Math.max(width, height) * 0.86;
-  const minor = Math.max(width, height) * CONFIG.galaxyWidth * 0.52;
+  const major = Math.max(width, height) * 0.92;
+  const minor = Math.max(width, height) * CONFIG.galaxyWidth * 0.44;
 
   ctx.save();
   ctx.translate(cx, cy);
@@ -504,13 +504,13 @@ function drawGalaxy(time) {
 
   const band = ctx.createLinearGradient(-major, 0, major, 0);
   band.addColorStop(0, "rgba(120, 140, 176, 0)");
-  band.addColorStop(0.12, `rgba(136, 154, 192, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.18})`);
-  band.addColorStop(0.24, `rgba(188, 202, 228, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.5})`);
-  band.addColorStop(0.33, `rgba(228, 234, 246, ${CONFIG.galaxyCoreStrength * CONFIG.galaxyOpacity * 0.75})`);
-  band.addColorStop(0.44, `rgba(174, 188, 220, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.28})`);
-  band.addColorStop(0.58, `rgba(220, 228, 244, ${CONFIG.galaxyCoreStrength * CONFIG.galaxyOpacity * 0.82})`);
-  band.addColorStop(0.68, `rgba(168, 182, 214, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.26})`);
-  band.addColorStop(0.82, `rgba(198, 208, 232, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.36})`);
+  band.addColorStop(0.12, `rgba(136, 154, 192, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.26})`);
+  band.addColorStop(0.24, `rgba(188, 202, 228, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.72})`);
+  band.addColorStop(0.33, `rgba(228, 234, 246, ${CONFIG.galaxyCoreStrength * CONFIG.galaxyOpacity * 1.15})`);
+  band.addColorStop(0.44, `rgba(174, 188, 220, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.34})`);
+  band.addColorStop(0.58, `rgba(220, 228, 244, ${CONFIG.galaxyCoreStrength * CONFIG.galaxyOpacity * 1.26})`);
+  band.addColorStop(0.68, `rgba(168, 182, 214, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.33})`);
+  band.addColorStop(0.82, `rgba(198, 208, 232, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.52})`);
   band.addColorStop(1, "rgba(120, 140, 176, 0)");
 
   ctx.save();
@@ -522,10 +522,10 @@ function drawGalaxy(time) {
   ctx.restore();
 
   const knots = [
-    { x: -0.34, y: -0.05, rx: 0.22, ry: 0.16, a: 0.82 },
-    { x: -0.08, y: 0.02, rx: 0.18, ry: 0.12, a: 0.54 },
-    { x: 0.14, y: -0.03, rx: 0.24, ry: 0.15, a: 0.9 },
-    { x: 0.36, y: 0.04, rx: 0.16, ry: 0.11, a: 0.48 },
+    { x: -0.34, y: -0.05, rx: 0.22, ry: 0.16, a: 1.12 },
+    { x: -0.08, y: 0.02, rx: 0.18, ry: 0.12, a: 0.74 },
+    { x: 0.14, y: -0.03, rx: 0.24, ry: 0.15, a: 1.24 },
+    { x: 0.36, y: 0.04, rx: 0.16, ry: 0.11, a: 0.66 },
   ];
 
   for (const knot of knots) {
