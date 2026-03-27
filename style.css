@@ -291,7 +291,7 @@ body::after {
     left: 8px;
     bottom: calc(8px + env(safe-area-inset-bottom, 0px));
     width: auto;
-    max-height: min(78vh, 820px);
+    max-height: 33vh;
     padding: 12px;
   }
 
