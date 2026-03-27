@@ -384,15 +384,15 @@ function randomStarTone() {
 
   if (value < CONFIG.warmToneRatio) {
     return {
-      fill: [255, 243, 238],
-      line: [255, 223, 214],
+      fill: [255, 232, 222],
+      line: [255, 206, 186],
     };
   }
 
   if (value < CONFIG.warmToneRatio + CONFIG.coolToneRatio) {
     return {
-      fill: [239, 247, 255],
-      line: [205, 225, 255],
+      fill: [226, 240, 255],
+      line: [184, 212, 255],
     };
   }
 
