@@ -703,17 +703,13 @@ function createControlPanel() {
       <button type="button" data-action="copy">复制 JSON</button>
     </div>
     <div class="control-panel__groups"></div>
-    <div class="control-panel__export">
-      <label for="config-export">导出参数</label>
-      <textarea id="config-export" readonly spellcheck="false"></textarea>
-    </div>
   `;
 
   document.body.appendChild(fab);
   document.body.appendChild(panel);
 
   const groupsRoot = panel.querySelector(".control-panel__groups");
-  const exportField = panel.querySelector("#config-export");
+  const exportField = document.createElement("textarea");
   const closeBtn = panel.querySelector(".control-panel__close");
   const copyBtn = panel.querySelector('[data-action="copy"]');
   const resetBtn = panel.querySelector('[data-action="reset"]');
