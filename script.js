@@ -112,98 +112,98 @@ const CONFIG = structuredClone(DEFAULT_CONFIG);
 
 const PARAM_DEFS = [
   {
-    group: "Stars",
+    group: "星星",
     items: [
-      { key: "starCount", label: "Star count", min: 20, max: 180, step: 1, type: "int", respawn: true },
-      { key: "starRadiusMin", label: "Star radius min", min: 0.1, max: 2, step: 0.01, type: "float", respawn: true },
-      { key: "starRadiusMax", label: "Star radius max", min: 0.3, max: 3, step: 0.01, type: "float", respawn: true },
-      { key: "starMaxAlphaMin", label: "Star alpha min", min: 0.05, max: 1, step: 0.01, type: "float" },
-      { key: "starMaxAlphaMax", label: "Star alpha max", min: 0.1, max: 1.2, step: 0.01, type: "float" },
-      { key: "starLifeSpeedMin", label: "Life speed min", min: 0.00002, max: 0.0005, step: 0.00001, type: "float" },
-      { key: "starLifeSpeedMax", label: "Life speed max", min: 0.00003, max: 0.0007, step: 0.00001, type: "float" },
-      { key: "starPulseSpeedMin", label: "Pulse speed min", min: 0.0005, max: 0.008, step: 0.0001, type: "float" },
-      { key: "starPulseSpeedMax", label: "Pulse speed max", min: 0.0006, max: 0.01, step: 0.0001, type: "float" },
-      { key: "diamondRatio", label: "Diamond ratio", min: 0, max: 1, step: 0.01, type: "float", respawn: true },
-      { key: "warmToneRatio", label: "Warm tone ratio", min: 0, max: 0.6, step: 0.01, type: "float", respawn: true },
-      { key: "coolToneRatio", label: "Cool tone ratio", min: 0, max: 0.6, step: 0.01, type: "float", respawn: true },
+      { key: "starCount", label: "星星数量", min: 20, max: 180, step: 1, type: "int", respawn: true },
+      { key: "starRadiusMin", label: "星星最小半径", min: 0.1, max: 2, step: 0.01, type: "float", respawn: true },
+      { key: "starRadiusMax", label: "星星最大半径", min: 0.3, max: 3, step: 0.01, type: "float", respawn: true },
+      { key: "starMaxAlphaMin", label: "星星最小亮度", min: 0.05, max: 1, step: 0.01, type: "float" },
+      { key: "starMaxAlphaMax", label: "星星最大亮度", min: 0.1, max: 1.2, step: 0.01, type: "float" },
+      { key: "starLifeSpeedMin", label: "生命周期最慢", min: 0.00002, max: 0.0005, step: 0.00001, type: "float" },
+      { key: "starLifeSpeedMax", label: "生命周期最快", min: 0.00003, max: 0.0007, step: 0.00001, type: "float" },
+      { key: "starPulseSpeedMin", label: "脉动最慢", min: 0.0005, max: 0.008, step: 0.0001, type: "float" },
+      { key: "starPulseSpeedMax", label: "脉动最快", min: 0.0006, max: 0.01, step: 0.0001, type: "float" },
+      { key: "diamondRatio", label: "菱形星比例", min: 0, max: 1, step: 0.01, type: "float", respawn: true },
+      { key: "warmToneRatio", label: "暖色星比例", min: 0, max: 0.6, step: 0.01, type: "float", respawn: true },
+      { key: "coolToneRatio", label: "冷色星比例", min: 0, max: 0.6, step: 0.01, type: "float", respawn: true },
     ],
   },
   {
-    group: "Flares",
+    group: "耀斑",
     items: [
-      { key: "flareRadiusThreshold", label: "Flare radius threshold", min: 0.4, max: 2.2, step: 0.01, type: "float", respawn: true },
-      { key: "flareChance", label: "Flare chance", min: 0, max: 0.2, step: 0.001, type: "float", respawn: true },
-      { key: "flareStrengthMin", label: "Flare strength min", min: 0.2, max: 3, step: 0.01, type: "float", respawn: true },
-      { key: "flareStrengthMax", label: "Flare strength max", min: 0.2, max: 4, step: 0.01, type: "float", respawn: true },
-      { key: "flareGlowRadiusBase", label: "Glow radius base", min: 2, max: 30, step: 0.1, type: "float" },
-      { key: "flareGlowRadiusStrength", label: "Glow radius strength", min: 0, max: 30, step: 0.1, type: "float" },
-      { key: "flareGlowAlphaInner", label: "Glow alpha inner", min: 0, max: 0.3, step: 0.001, type: "float" },
-      { key: "flareGlowAlphaMid", label: "Glow alpha mid", min: 0, max: 0.2, step: 0.001, type: "float" },
-      { key: "flareGlowAlphaOuter", label: "Glow alpha outer", min: 0, max: 0.1, step: 0.001, type: "float" },
-      { key: "flareStreakScaleX", label: "Streak scale X", min: 1, max: 5, step: 0.01, type: "float" },
-      { key: "flareStreakScaleY", label: "Streak scale Y", min: 0.1, max: 1.4, step: 0.01, type: "float" },
-      { key: "flareStreakAlphaInner", label: "Streak alpha inner", min: 0, max: 0.2, step: 0.001, type: "float" },
-      { key: "flareStreakAlphaMid", label: "Streak alpha mid", min: 0, max: 0.1, step: 0.001, type: "float" },
-      { key: "flareGhostAlphaInner", label: "Ghost alpha inner", min: 0, max: 0.12, step: 0.001, type: "float" },
-      { key: "flareGhostAlphaMid", label: "Ghost alpha mid", min: 0, max: 0.08, step: 0.001, type: "float" },
-      { key: "flareCoreRadiusBase", label: "Core radius base", min: 0.5, max: 8, step: 0.01, type: "float" },
-      { key: "flareCoreRadiusStrength", label: "Core radius strength", min: 0, max: 4, step: 0.01, type: "float" },
-      { key: "flareCoreAlphaInner", label: "Core alpha inner", min: 0, max: 0.15, step: 0.001, type: "float" },
-      { key: "flareCoreAlphaMid", label: "Core alpha mid", min: 0, max: 0.12, step: 0.001, type: "float" },
-      { key: "flareCrossAlpha", label: "Cross alpha", min: 0, max: 0.08, step: 0.001, type: "float" },
-      { key: "flareRotationBaseMin", label: "Rotation base min", min: -1, max: 0, step: 0.01, type: "float", respawn: true },
-      { key: "flareRotationBaseMax", label: "Rotation base max", min: 0, max: 1, step: 0.01, type: "float", respawn: true },
-      { key: "flareRotationSpeedMin", label: "Rotation speed min", min: 0, max: 0.001, step: 0.00001, type: "float", respawn: true },
-      { key: "flareRotationSpeedMax", label: "Rotation speed max", min: 0, max: 0.002, step: 0.00001, type: "float", respawn: true },
-      { key: "flareWindowStart", label: "Flare window start", min: 0, max: 0.95, step: 0.01, type: "float" },
-      { key: "flareWindowRange", label: "Flare window range", min: 0.05, max: 1, step: 0.01, type: "float" },
-      { key: "flareHoldPower", label: "Flare hold power", min: 0.1, max: 2, step: 0.01, type: "float" },
-      { key: "flarePulseBase", label: "Flare pulse base", min: 0, max: 1, step: 0.01, type: "float" },
-      { key: "flarePulseAmplitude", label: "Flare pulse amplitude", min: 0, max: 1, step: 0.01, type: "float" },
-      { key: "flarePulseGateStart", label: "Flare gate start", min: 0, max: 1, step: 0.01, type: "float" },
-      { key: "flarePulseGateRange", label: "Flare gate range", min: 0.01, max: 1, step: 0.01, type: "float" },
-      { key: "flareIntensityPower", label: "Flare intensity power", min: 0.1, max: 2, step: 0.01, type: "float" },
+      { key: "flareRadiusThreshold", label: "耀斑半径门槛", min: 0.4, max: 2.2, step: 0.01, type: "float", respawn: true },
+      { key: "flareChance", label: "耀斑出现概率", min: 0, max: 0.2, step: 0.001, type: "float", respawn: true },
+      { key: "flareStrengthMin", label: "耀斑强度最小", min: 0.2, max: 3, step: 0.01, type: "float", respawn: true },
+      { key: "flareStrengthMax", label: "耀斑强度最大", min: 0.2, max: 4, step: 0.01, type: "float", respawn: true },
+      { key: "flareGlowRadiusBase", label: "外层晕染基础半径", min: 2, max: 30, step: 0.1, type: "float" },
+      { key: "flareGlowRadiusStrength", label: "外层晕染附加强度", min: 0, max: 30, step: 0.1, type: "float" },
+      { key: "flareGlowAlphaInner", label: "外层晕染中心亮度", min: 0, max: 0.3, step: 0.001, type: "float" },
+      { key: "flareGlowAlphaMid", label: "外层晕染中段亮度", min: 0, max: 0.2, step: 0.001, type: "float" },
+      { key: "flareGlowAlphaOuter", label: "外层晕染边缘亮度", min: 0, max: 0.1, step: 0.001, type: "float" },
+      { key: "flareStreakScaleX", label: "横向耀斑宽度", min: 1, max: 5, step: 0.01, type: "float" },
+      { key: "flareStreakScaleY", label: "横向耀斑厚度", min: 0.1, max: 1.4, step: 0.01, type: "float" },
+      { key: "flareStreakAlphaInner", label: "横向耀斑中心亮度", min: 0, max: 0.2, step: 0.001, type: "float" },
+      { key: "flareStreakAlphaMid", label: "横向耀斑边缘亮度", min: 0, max: 0.1, step: 0.001, type: "float" },
+      { key: "flareGhostAlphaInner", label: "鬼影中心亮度", min: 0, max: 0.12, step: 0.001, type: "float" },
+      { key: "flareGhostAlphaMid", label: "鬼影边缘亮度", min: 0, max: 0.08, step: 0.001, type: "float" },
+      { key: "flareCoreRadiusBase", label: "内层晕染基础半径", min: 0.5, max: 8, step: 0.01, type: "float" },
+      { key: "flareCoreRadiusStrength", label: "内层晕染附加强度", min: 0, max: 4, step: 0.01, type: "float" },
+      { key: "flareCoreAlphaInner", label: "内层晕染中心亮度", min: 0, max: 0.15, step: 0.001, type: "float" },
+      { key: "flareCoreAlphaMid", label: "内层晕染边缘亮度", min: 0, max: 0.12, step: 0.001, type: "float" },
+      { key: "flareCrossAlpha", label: "十字感强度", min: 0, max: 0.08, step: 0.001, type: "float" },
+      { key: "flareRotationBaseMin", label: "旋转角最小", min: -1, max: 0, step: 0.01, type: "float", respawn: true },
+      { key: "flareRotationBaseMax", label: "旋转角最大", min: 0, max: 1, step: 0.01, type: "float", respawn: true },
+      { key: "flareRotationSpeedMin", label: "旋转速度最慢", min: 0, max: 0.001, step: 0.00001, type: "float", respawn: true },
+      { key: "flareRotationSpeedMax", label: "旋转速度最快", min: 0, max: 0.002, step: 0.00001, type: "float", respawn: true },
+      { key: "flareWindowStart", label: "耀斑起始时机", min: 0, max: 0.95, step: 0.01, type: "float" },
+      { key: "flareWindowRange", label: "耀斑持续区间", min: 0.05, max: 1, step: 0.01, type: "float" },
+      { key: "flareHoldPower", label: "耀斑停留感", min: 0.1, max: 2, step: 0.01, type: "float" },
+      { key: "flarePulseBase", label: "耀斑脉动基线", min: 0, max: 1, step: 0.01, type: "float" },
+      { key: "flarePulseAmplitude", label: "耀斑脉动幅度", min: 0, max: 1, step: 0.01, type: "float" },
+      { key: "flarePulseGateStart", label: "耀斑触发门槛", min: 0, max: 1, step: 0.01, type: "float" },
+      { key: "flarePulseGateRange", label: "耀斑触发范围", min: 0.01, max: 1, step: 0.01, type: "float" },
+      { key: "flareIntensityPower", label: "耀斑衰减力度", min: 0.1, max: 2, step: 0.01, type: "float" },
     ],
   },
   {
-    group: "Meteors",
+    group: "流星",
     items: [
-      { key: "meteorDelayMin", label: "Meteor delay min", min: 1000, max: 60000, step: 100, type: "int" },
-      { key: "meteorDelayMax", label: "Meteor delay max", min: 1000, max: 90000, step: 100, type: "int" },
-      { key: "meteorLengthMin", label: "Meteor length min", min: 20, max: 800, step: 1, type: "int" },
-      { key: "meteorLengthMax", label: "Meteor length max", min: 20, max: 1200, step: 1, type: "int" },
-      { key: "meteorSpeedMin", label: "Meteor speed min", min: 0.2, max: 20, step: 0.1, type: "float" },
-      { key: "meteorSpeedMax", label: "Meteor speed max", min: 0.2, max: 30, step: 0.1, type: "float" },
-      { key: "meteorFadeMin", label: "Meteor fade min", min: 0.0005, max: 0.03, step: 0.0001, type: "float" },
-      { key: "meteorFadeMax", label: "Meteor fade max", min: 0.0005, max: 0.04, step: 0.0001, type: "float" },
-      { key: "meteorWidthMin", label: "Meteor width min", min: 0.2, max: 4, step: 0.1, type: "float" },
-      { key: "meteorWidthMax", label: "Meteor width max", min: 0.2, max: 6, step: 0.1, type: "float" },
-      { key: "meteorHeadAlpha", label: "Meteor head alpha", min: 0.1, max: 1.5, step: 0.01, type: "float" },
-      { key: "meteorMidAlpha", label: "Meteor mid alpha", min: 0.05, max: 1, step: 0.01, type: "float" },
+      { key: "meteorDelayMin", label: "流星间隔最短", min: 1000, max: 60000, step: 100, type: "int" },
+      { key: "meteorDelayMax", label: "流星间隔最长", min: 1000, max: 90000, step: 100, type: "int" },
+      { key: "meteorLengthMin", label: "流星尾迹最短", min: 20, max: 800, step: 1, type: "int" },
+      { key: "meteorLengthMax", label: "流星尾迹最长", min: 20, max: 1200, step: 1, type: "int" },
+      { key: "meteorSpeedMin", label: "流星速度最慢", min: 0.2, max: 20, step: 0.1, type: "float" },
+      { key: "meteorSpeedMax", label: "流星速度最快", min: 0.2, max: 30, step: 0.1, type: "float" },
+      { key: "meteorFadeMin", label: "流星消散最慢", min: 0.0005, max: 0.03, step: 0.0001, type: "float" },
+      { key: "meteorFadeMax", label: "流星消散最快", min: 0.0005, max: 0.04, step: 0.0001, type: "float" },
+      { key: "meteorWidthMin", label: "流星最细宽度", min: 0.2, max: 4, step: 0.1, type: "float" },
+      { key: "meteorWidthMax", label: "流星最粗宽度", min: 0.2, max: 6, step: 0.1, type: "float" },
+      { key: "meteorHeadAlpha", label: "流星头部亮度", min: 0.1, max: 1.5, step: 0.01, type: "float" },
+      { key: "meteorMidAlpha", label: "流星尾部亮度", min: 0.05, max: 1, step: 0.01, type: "float" },
     ],
   },
   {
-    group: "Atmosphere",
+    group: "氛围",
     items: [
-      { key: "bgGlowInnerAlpha", label: "BG glow inner", min: 0, max: 0.15, step: 0.001, type: "float" },
-      { key: "bgGlowMidAlpha", label: "BG glow mid", min: 0, max: 0.08, step: 0.001, type: "float" },
-      { key: "cssGlowCyanAlpha", label: "CSS cyan glow", min: 0, max: 0.15, step: 0.001, type: "float", css: true },
-      { key: "cssGlowGoldAlpha", label: "CSS gold glow", min: 0, max: 0.1, step: 0.001, type: "float", css: true },
-      { key: "cssBottomBlueAlpha", label: "CSS bottom blue", min: 0, max: 0.15, step: 0.001, type: "float", css: true },
-      { key: "cssMilkyBandOpacity", label: "Milky band opacity", min: 0, max: 0.5, step: 0.001, type: "float", css: true },
-      { key: "cssMilkyCloudOpacity", label: "Milky cloud opacity", min: 0, max: 0.5, step: 0.001, type: "float", css: true },
-      { key: "cssMilkyBandAngle", label: "Milky band angle", min: 0, max: 180, step: 1, type: "int", css: true },
-      { key: "cssMilkyBandCenter", label: "Milky band center", min: 10, max: 90, step: 1, type: "int", css: true },
-      { key: "cssGrainOpacity", label: "Grain opacity", min: 0, max: 1, step: 0.01, type: "float", css: true },
-      { key: "cssCanvasSaturate", label: "Canvas saturate", min: 0.5, max: 1.5, step: 0.01, type: "float", css: true },
-      { key: "cssCanvasContrast", label: "Canvas contrast", min: 0.5, max: 1.5, step: 0.01, type: "float", css: true },
-      { key: "mobileMilkyBandOpacity", label: "Mobile milky opacity", min: 0, max: 0.6, step: 0.001, type: "float", css: true },
-      { key: "mobileMilkyCloudOpacity", label: "Mobile milky cloud", min: 0, max: 0.6, step: 0.001, type: "float", css: true },
-      { key: "mobileMilkyBandAngle", label: "Mobile milky angle", min: 0, max: 180, step: 1, type: "int", css: true },
-      { key: "mobileMilkyBandCenter", label: "Mobile milky center", min: 10, max: 90, step: 1, type: "int", css: true },
-      { key: "mobileGrainOpacity", label: "Mobile grain opacity", min: 0, max: 1, step: 0.01, type: "float", css: true },
-      { key: "mobileCanvasSaturate", label: "Mobile saturate", min: 0.5, max: 1.5, step: 0.01, type: "float", css: true },
-      { key: "mobileCanvasContrast", label: "Mobile contrast", min: 0.5, max: 1.5, step: 0.01, type: "float", css: true },
+      { key: "bgGlowInnerAlpha", label: "背景辉光中心", min: 0, max: 0.15, step: 0.001, type: "float" },
+      { key: "bgGlowMidAlpha", label: "背景辉光边缘", min: 0, max: 0.08, step: 0.001, type: "float" },
+      { key: "cssGlowCyanAlpha", label: "冷色氛围强度", min: 0, max: 0.15, step: 0.001, type: "float", css: true },
+      { key: "cssGlowGoldAlpha", label: "暖色氛围强度", min: 0, max: 0.1, step: 0.001, type: "float", css: true },
+      { key: "cssBottomBlueAlpha", label: "底部蓝雾强度", min: 0, max: 0.15, step: 0.001, type: "float", css: true },
+      { key: "cssMilkyBandOpacity", label: "银河带强度", min: 0, max: 0.5, step: 0.001, type: "float", css: true },
+      { key: "cssMilkyCloudOpacity", label: "银河云雾强度", min: 0, max: 0.5, step: 0.001, type: "float", css: true },
+      { key: "cssMilkyBandAngle", label: "银河带角度", min: 0, max: 180, step: 1, type: "int", css: true },
+      { key: "cssMilkyBandCenter", label: "银河带中心位置", min: 10, max: 90, step: 1, type: "int", css: true },
+      { key: "cssGrainOpacity", label: "颗粒强度", min: 0, max: 1, step: 0.01, type: "float", css: true },
+      { key: "cssCanvasSaturate", label: "画布饱和度", min: 0.5, max: 1.5, step: 0.01, type: "float", css: true },
+      { key: "cssCanvasContrast", label: "画布对比度", min: 0.5, max: 1.5, step: 0.01, type: "float", css: true },
+      { key: "mobileMilkyBandOpacity", label: "手机银河带强度", min: 0, max: 0.6, step: 0.001, type: "float", css: true },
+      { key: "mobileMilkyCloudOpacity", label: "手机银河云雾", min: 0, max: 0.6, step: 0.001, type: "float", css: true },
+      { key: "mobileMilkyBandAngle", label: "手机银河角度", min: 0, max: 180, step: 1, type: "int", css: true },
+      { key: "mobileMilkyBandCenter", label: "手机银河中心", min: 10, max: 90, step: 1, type: "int", css: true },
+      { key: "mobileGrainOpacity", label: "手机颗粒强度", min: 0, max: 1, step: 0.01, type: "float", css: true },
+      { key: "mobileCanvasSaturate", label: "手机饱和度", min: 0.5, max: 1.5, step: 0.01, type: "float", css: true },
+      { key: "mobileCanvasContrast", label: "手机对比度", min: 0.5, max: 1.5, step: 0.01, type: "float", css: true },
     ],
   },
 ];
@@ -685,7 +685,7 @@ function createControlPanel() {
   fab.className = "control-fab";
   fab.type = "button";
   fab.setAttribute("aria-label", "Open tuning panel");
-  fab.textContent = "调";
+  fab.textContent = "参";
 
   const panel = document.createElement("aside");
   panel.className = "control-panel";
@@ -693,14 +693,14 @@ function createControlPanel() {
   panel.innerHTML = `
     <div class="control-panel__header">
       <div>
-        <h2>参数面板</h2>
-        <p>实时调参，可复制 JSON 发回给我</p>
+        <h2>参数</h2>
+        <p>极简调参，可复制 JSON</p>
       </div>
       <button type="button" class="control-panel__close" aria-label="Close panel">×</button>
     </div>
     <div class="control-panel__actions">
-      <button type="button" data-action="reset">重置默认</button>
-      <button type="button" data-action="copy">复制参数 JSON</button>
+      <button type="button" data-action="reset">重置</button>
+      <button type="button" data-action="copy">复制 JSON</button>
     </div>
     <div class="control-panel__groups"></div>
     <div class="control-panel__export">
@@ -723,9 +723,20 @@ function createControlPanel() {
     const section = document.createElement("section");
     section.className = "control-group";
 
-    const title = document.createElement("h3");
+    const title = document.createElement("button");
+    title.type = "button";
+    title.className = "control-group__toggle";
     title.textContent = group.group;
     section.appendChild(title);
+
+    const body = document.createElement("div");
+    body.className = "control-group__body";
+    if (group.group !== "耀斑") {
+      section.classList.add("is-collapsed");
+    }
+    title.addEventListener("click", () => {
+      section.classList.toggle("is-collapsed");
+    });
 
     for (const def of group.items) {
       const row = document.createElement("label");
@@ -778,11 +789,12 @@ function createControlPanel() {
       inputs.appendChild(number);
       row.appendChild(head);
       row.appendChild(inputs);
-      section.appendChild(row);
+      body.appendChild(row);
 
       controls.set(def.key, { def, range, number, value });
     }
 
+    section.appendChild(body);
     groupsRoot.appendChild(section);
   }
 
@@ -811,13 +823,13 @@ function createControlPanel() {
       await navigator.clipboard.writeText(exportField.value);
       copyBtn.textContent = "已复制";
       setTimeout(() => {
-        copyBtn.textContent = "复制参数 JSON";
+        copyBtn.textContent = "复制 JSON";
       }, 1400);
     } catch {
       document.execCommand("copy");
       copyBtn.textContent = "已复制";
       setTimeout(() => {
-        copyBtn.textContent = "复制参数 JSON";
+        copyBtn.textContent = "复制 JSON";
       }, 1400);
     }
   });
