@@ -81,10 +81,10 @@ function spawnMeteor(now) {
     x: random(width * 0.12, width * 0.88),
     y: random(-60, height * 0.22),
     length: random(280, 470),
-    speed: random(5.4, 9.2),
+    speed: random(2.7, 4.6),
     angle: random(Math.PI / 5, Math.PI / 3.8),
     life: 1,
-    fade: random(0.0075, 0.012),
+    fade: random(0.0038, 0.006),
     width: random(0.8, 1.8),
   });
 
