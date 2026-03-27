@@ -106,6 +106,12 @@ const DEFAULT_CONFIG = {
   mobileGrainOpacity: 0.42,
   mobileCanvasSaturate: 0.96,
   mobileCanvasContrast: 0.985,
+  galaxyOpacity: 0.16,
+  galaxyAngle: -0.72,
+  galaxyWidth: 0.34,
+  galaxyCoreStrength: 0.05,
+  galaxyDustStrength: 0.032,
+  galaxyDrift: 0.000018,
 };
 
 const CONFIG = structuredClone(DEFAULT_CONFIG);
@@ -187,6 +193,12 @@ const PARAM_DEFS = [
     items: [
       { key: "bgGlowInnerAlpha", label: "背景辉光中心", min: 0, max: 0.15, step: 0.001, type: "float" },
       { key: "bgGlowMidAlpha", label: "背景辉光边缘", min: 0, max: 0.08, step: 0.001, type: "float" },
+      { key: "galaxyOpacity", label: "银河整体强度", min: 0, max: 0.5, step: 0.001, type: "float" },
+      { key: "galaxyAngle", label: "银河倾斜角", min: -1.57, max: 1.57, step: 0.01, type: "float" },
+      { key: "galaxyWidth", label: "银河宽度", min: 0.08, max: 0.8, step: 0.01, type: "float" },
+      { key: "galaxyCoreStrength", label: "银河中心亮度", min: 0, max: 0.18, step: 0.001, type: "float" },
+      { key: "galaxyDustStrength", label: "银河尘埃亮度", min: 0, max: 0.12, step: 0.001, type: "float" },
+      { key: "galaxyDrift", label: "银河轻微漂移", min: 0, max: 0.00008, step: 0.000001, type: "float" },
       { key: "cssGlowCyanAlpha", label: "冷色氛围强度", min: 0, max: 0.15, step: 0.001, type: "float", css: true },
       { key: "cssGlowGoldAlpha", label: "暖色氛围强度", min: 0, max: 0.1, step: 0.001, type: "float", css: true },
       { key: "cssBottomBlueAlpha", label: "底部蓝雾强度", min: 0, max: 0.15, step: 0.001, type: "float", css: true },
@@ -474,6 +486,63 @@ function spawnMeteor(now) {
   resetMeteorTimer();
 }
 
+function drawGalaxy(time) {
+  if (CONFIG.galaxyOpacity <= 0.0005) {
+    return;
+  }
+
+  const cx = width * 0.5;
+  const cy = height * 0.5;
+  const cosA = Math.cos(CONFIG.galaxyAngle);
+  const sinA = Math.sin(CONFIG.galaxyAngle);
+  const drift = time * CONFIG.galaxyDrift;
+
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.rotate(CONFIG.galaxyAngle);
+
+  const bandWidth = Math.max(width, height) * CONFIG.galaxyWidth;
+  const bandLength = Math.max(width, height) * 1.25;
+
+  const core = ctx.createRadialGradient(0, drift * 120, 0, 0, drift * 120, bandLength * 0.72);
+  core.addColorStop(0, `rgba(220, 228, 245, ${CONFIG.galaxyCoreStrength * CONFIG.galaxyOpacity})`);
+  core.addColorStop(0.24, `rgba(185, 198, 226, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity})`);
+  core.addColorStop(0.55, `rgba(120, 136, 176, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.38})`);
+  core.addColorStop(1, "rgba(90, 110, 150, 0)");
+
+  ctx.scale(1, CONFIG.galaxyWidth);
+  ctx.beginPath();
+  ctx.fillStyle = core;
+  ctx.arc(0, 0, bandLength, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+
+  ctx.save();
+  ctx.globalCompositeOperation = "screen";
+  ctx.translate(cx, cy);
+  ctx.rotate(CONFIG.galaxyAngle);
+
+  const dustA = ctx.createRadialGradient(-width * 0.16, -height * 0.03, 0, -width * 0.16, -height * 0.03, bandWidth * 1.35);
+  dustA.addColorStop(0, `rgba(230, 236, 248, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.7})`);
+  dustA.addColorStop(0.45, `rgba(172, 186, 220, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.42})`);
+  dustA.addColorStop(1, "rgba(150, 168, 214, 0)");
+  ctx.beginPath();
+  ctx.fillStyle = dustA;
+  ctx.ellipse(-width * 0.08, 0, width * 0.42, bandWidth * 0.52, 0.08, 0, Math.PI * 2);
+  ctx.fill();
+
+  const dustB = ctx.createRadialGradient(width * 0.18, height * 0.06, 0, width * 0.18, height * 0.06, bandWidth * 1.4);
+  dustB.addColorStop(0, `rgba(214, 225, 245, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.56})`);
+  dustB.addColorStop(0.5, `rgba(160, 178, 214, ${CONFIG.galaxyDustStrength * CONFIG.galaxyOpacity * 0.3})`);
+  dustB.addColorStop(1, "rgba(140, 160, 198, 0)");
+  ctx.beginPath();
+  ctx.fillStyle = dustB;
+  ctx.ellipse(width * 0.14, height * 0.02, width * 0.36, bandWidth * 0.46, -0.12, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.restore();
+}
+
 function drawBackgroundGlow() {
   const gradient = ctx.createRadialGradient(
     width * CONFIG.bgGlowCenterX,
@@ -670,6 +739,7 @@ function animate(now) {
   ctx.clearRect(0, 0, width, height);
 
   drawBackgroundGlow();
+  drawGalaxy(now);
   drawStars(now, delta);
 
   if (meteors.length === 0 && now - lastMeteorAt > nextMeteorDelay) {
