@@ -228,6 +228,7 @@ let nextMeteorDelay = 0;
 let lastFrameTime = 0;
 let needsRespawn = false;
 let isPanelOpen = false;
+let fieldRotation = 0; // 星空整体旋转角度
 
 const ui = createControlPanel();
 applyCSSConfig();
@@ -749,6 +750,9 @@ function animate(now) {
   const delta = lastFrameTime ? now - lastFrameTime : 16;
   lastFrameTime = now;
 
+  // 120秒一圈的顺时针旋转 (2π 弧度 / 120000ms)
+  fieldRotation += (Math.PI * 2 / 120000) * delta;
+
   if (needsRespawn) {
     respawnAllStars();
     meteors.length = 0;
@@ -758,10 +762,19 @@ function animate(now) {
 
   ctx.clearRect(0, 0, width, height);
 
+  ctx.save();
+  // 以画布中心为旋转原点
+  ctx.translate(width / 2, height / 2);
+  ctx.rotate(fieldRotation);
+  ctx.translate(-width / 2, -height / 2);
+
   drawBackgroundGlow();
   drawGalaxy(now);
   drawStars(now, delta);
 
+  ctx.restore();
+
+  // 流星不随星空旋转，单独绘制
   if (meteors.length === 0 && now - lastMeteorAt > nextMeteorDelay) {
     spawnMeteor(now);
   }
