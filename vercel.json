@@ -2,6 +2,14 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/background",
+      "destination": "/background-cosmics/"
+    },
+    {
+      "source": "/logo",
+      "destination": "/LogoAnimation/QWX_Logo_Animated.html"
+    },
+    {
       "source": "/background-cosmics",
       "destination": "/background-cosmics/"
     }
