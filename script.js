@@ -750,8 +750,8 @@ function animate(now) {
   const delta = lastFrameTime ? now - lastFrameTime : 16;
   lastFrameTime = now;
 
-  // 120秒一圈的顺时针旋转 (2π 弧度 / 120000ms)
-  fieldRotation += (Math.PI * 2 / 120000) * delta;
+  // 240秒一圈的顺时针旋转 (2π 弧度 / 240000ms)
+  fieldRotation += (Math.PI * 2 / 240000) * delta;
 
   if (needsRespawn) {
     respawnAllStars();
