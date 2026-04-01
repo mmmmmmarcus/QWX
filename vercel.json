@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/background-cosmics",
+      "destination": "/background-cosmics/"
+    }
+  ]
+}
