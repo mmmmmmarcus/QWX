@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QWX Logo — Animated</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #1C1C1C;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    #logo-svg {
+      width: 198px;
+      height: 240px;
+    }
+  </style>
+</head>
+<body>
+
+  <svg id="logo-svg" viewBox="0 0 66 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <clipPath id="clip0_3230_5337">
+        <rect width="65.423" height="80" fill="white"/>
+      </clipPath>
+
+      <!-- Mask that reveals the ring via a growing clockwise sector -->
+      <mask id="ringRevealMask" maskUnits="userSpaceOnUse">
+        <path id="sweepSector" d="" fill="white"/>
+      </mask>
+    </defs>
+
+    <g clip-path="url(#clip0_3230_5337)">
+
+      <!-- Ring path — revealed by clockwise sweep mask -->
+      <path
+        id="ring"
+        mask="url(#ringRevealMask)"
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M49.1411 0.13919C50.1082 0.0545703 51.8881 0.152522 52.849 0.302709C60.4006 1.4831 64.9845 7.44589 65.1995 14.9327L65.2065 15.175C65.2644 17.1722 65.3283 19.3738 65.0516 21.3555C63.9556 29.2027 61.2241 36.9119 57.3286 43.8034C56.0314 46.1415 55.2977 47.6542 53.8022 49.5091C53.3259 50.0998 52.5318 50.3401 51.8198 50.0777C49.2322 49.1242 47.3736 47.5062 46.8935 45.217C46.79 44.7236 46.964 44.2232 47.2716 43.8238C51.1064 38.8465 53.1001 33.625 54.7508 27.4814C55.9223 23.1202 56.336 18.0173 54.303 13.7914C50.5506 5.99267 41.2204 8.00571 34.9992 11.1593C25.5843 16.0669 17.9687 24.9757 13.1973 34.3599C11.9737 36.7663 11.0965 39.2026 10.2602 41.7409C8.81625 47.3149 8.2646 55.7416 13.2597 59.8242C16.7177 62.6506 21.0997 62.8684 25.2312 61.3114C25.7432 61.1185 26.2855 60.9959 26.8176 61.1231C28.8482 61.6085 33.0437 63.5344 33.6719 66.9889C33.8686 68.071 33.1766 69.0667 32.2477 69.6556C28.064 72.3081 24.289 73.6955 19.8197 74.5886C14.8568 75.5457 9.49736 75.2274 5.49811 71.7681C3.01136 69.6173 1.50006 66.5138 0.757214 63.3568C0.724882 63.2195 0.69145 63.0822 0.657995 62.9448C0.541919 62.4681 0.425542 61.9902 0.353978 61.504C0.112883 59.3408 -0.015214 57.1507 0.192719 54.9787C0.219887 54.6949 0.234903 54.4115 0.249885 54.1288C0.26953 53.7581 0.289116 53.3885 0.335962 53.0204C0.429228 52.2873 0.578404 51.5686 0.728047 50.8477C0.752046 50.732 0.776076 50.6163 0.79987 50.5005C0.840105 50.3035 0.875737 50.097 0.911577 49.8892C0.964747 49.581 1.01837 49.2702 1.08817 48.984C3.61162 38.6345 9.92475 27.5591 16.8634 19.508C23.6184 11.6698 34.2932 3.29721 44.4447 0.810439L44.6052 0.770475C45.2738 0.603959 45.9435 0.437161 46.6238 0.326107C46.8993 0.281151 47.1768 0.266929 47.4548 0.252684C47.5702 0.246772 47.6856 0.240856 47.801 0.232737C47.9946 0.219102 48.1885 0.205675 48.3823 0.192247C48.6351 0.174734 48.8886 0.157172 49.1411 0.13919Z"
+        fill="white"
+        opacity="0"
+      />
+
+      <!-- Star path — scales up from centre (40, 56.5) after ring completes -->
+      <g id="starWrapper">
+        <path
+          id="star"
+          d="M40.0045 32.9922C40.5558 32.9922 41.004 33.4364 41.009 33.9876L41.085 42.3398C41.1411 49.1621 46.3434 54.7704 53.0267 55.4378C53.5802 55.493 54.0254 55.9437 54.0254 56.5C54.0254 57.0563 53.5802 57.507 53.0267 57.5622C46.3434 58.2296 41.1411 63.8379 41.085 70.6602L41.0091 79.0079C41.0041 79.5616 40.5537 80.0078 40 80.0078C39.4463 80.0078 38.9959 79.5616 38.9909 79.0079L38.915 70.6602C38.8589 63.8379 33.6566 58.2296 26.9733 57.5622C26.4198 57.507 25.9746 57.0563 25.9746 56.5C25.9746 55.9437 26.4197 55.493 26.9733 55.4378C33.6641 54.7707 38.9439 49.1623 39 42.3398V33.9967C39 33.4419 39.4497 32.9922 40.0045 32.9922Z"
+          fill="white"
+        />
+      </g>
+
+    </g>
+  </svg>
+
+  <script>
+    const logoSvg     = document.getElementById('logo-svg');
+    const sweepSector = document.getElementById('sweepSector');
+    const ring        = document.getElementById('ring');
+    const starWrapper = document.getElementById('starWrapper');
+
+    // Overall scale animation: starts large, settles to 1×
+    const SCALE_FROM  = 1.5;
+    const TOTAL_DURATION = 1100 + 500; // keep in sync with RING + STAR
+
+    // Visual centre of the ring's circular arc (pivot for the clock-wipe)
+    const CX = 33;
+    const CY = 32;
+    const R  = 115; // large enough to cover the full SVG diagonal
+
+    // In SVG coords (0° = 3 o'clock, clockwise positive): 55° ≈ 4:40 position
+    const START_ANGLE_DEG = 55;
+
+    // Star centre
+    const STAR_CX = 40;
+    const STAR_CY = 56.5;
+
+    // Timing (total ≤ 2 000 ms)
+    const RING_DURATION = 1100; // ms
+    const STAR_DURATION =  500; // ms
+
+    // ── easing helpers ────────────────────────────────────────────────────────
+    function easeInOut(t) {
+      return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    }
+    function easeOutBack(t) {
+      const c1 = 1.70158, c3 = c1 + 1;
+      return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+    }
+    function easeOutQuart(t) {
+      return 1 - Math.pow(1 - t, 4);
+    }
+
+    // ── sector path builder ───────────────────────────────────────────────────
+    function sectorPath(cx, cy, r, startDeg, sweepDeg) {
+      if (sweepDeg >= 359.999) {
+        // Full disc — two semicircle arcs to avoid degenerate path
+        return [
+          `M ${cx} ${cy - r}`,
+          `A ${r} ${r} 0 1 1 ${cx} ${cy + r}`,
+          `A ${r} ${r} 0 1 1 ${cx} ${cy - r}`,
+          'Z'
+        ].join(' ');
+      }
+      const s = (startDeg * Math.PI) / 180;
+      const e = ((startDeg + sweepDeg) * Math.PI) / 180;
+      const x1 = cx + r * Math.cos(s), y1 = cy + r * Math.sin(s);
+      const x2 = cx + r * Math.cos(e), y2 = cy + r * Math.sin(e);
+      const large = sweepDeg > 180 ? 1 : 0;
+      return `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${large} 1 ${x2} ${y2} Z`;
+    }
+
+    // ── star transform helper ─────────────────────────────────────────────────
+    function applyStarTransform(s, rotateDeg) {
+      // Scale + rotate around (STAR_CX, STAR_CY)
+      starWrapper.setAttribute(
+        'transform',
+        `translate(${STAR_CX} ${STAR_CY}) rotate(${rotateDeg}) scale(${s}) translate(${-STAR_CX} ${-STAR_CY})`
+      );
+    }
+
+    // Initialise: ring mask empty, star invisible, logo at starting scale
+    sweepSector.setAttribute('d', sectorPath(CX, CY, R, START_ANGLE_DEG, 0.001));
+    applyStarTransform(0, 3);
+    logoSvg.style.transform = `scale(${SCALE_FROM})`;
+
+    function applyLogoScale(elapsed) {
+      const tScale = easeOutQuart(Math.min(elapsed / TOTAL_DURATION, 1));
+      const s = SCALE_FROM - (SCALE_FROM - 1) * tScale;
+      logoSvg.style.transform = `scale(${s.toFixed(5)})`;
+    }
+
+    // ── animation loop ────────────────────────────────────────────────────────
+    let startTime = null;
+
+    function frame(ts) {
+      if (!startTime) startTime = ts;
+      const elapsed = ts - startTime;
+
+      // Overall scale-down runs across the full animation
+      applyLogoScale(elapsed);
+
+      if (elapsed < RING_DURATION) {
+        // Phase 1 — ring sweep + opacity 0 → 1
+        const t     = easeInOut(Math.min(elapsed / RING_DURATION, 1));
+        const sweep = t * 360;
+        sweepSector.setAttribute('d', sectorPath(CX, CY, R, START_ANGLE_DEG, sweep));
+        ring.setAttribute('opacity', t.toFixed(4));
+        applyStarTransform(0, 3);
+        requestAnimationFrame(frame);
+
+      } else {
+        // Ring fully revealed — keep it solid
+        sweepSector.setAttribute('d', sectorPath(CX, CY, R, START_ANGLE_DEG, 360));
+        ring.setAttribute('opacity', '1');
+
+        const starElapsed = elapsed - RING_DURATION;
+
+        if (starElapsed < STAR_DURATION) {
+          // Phase 2 — star scale-up with slight rotation unwind (3° → 0°)
+          const t      = easeOutBack(Math.min(starElapsed / STAR_DURATION, 1));
+          const rotate = (1 - Math.min(starElapsed / STAR_DURATION, 1)) * 3;
+          applyStarTransform(Math.max(t, 0), rotate);
+          requestAnimationFrame(frame);
+        } else {
+          // Done
+          applyStarTransform(1, 0);
+          logoSvg.style.transform = 'scale(1)';
+        }
+      }
+    }
+
+    requestAnimationFrame(frame);
+  </script>
+
+</body>
+</html>
