@@ -68,7 +68,6 @@
     // Overall scale animation: starts large, settles to 1×
     const SCALE_FROM  = 2.4;
     const TOTAL_DURATION = 2000 + 1000; // keep in sync with RING + STAR
-    const GLOW_MAX = 10;
     const BLUR_FROM = 20;
 
     // Visual centre of the ring's circular arc (pivot for the clock-wipe)
@@ -144,19 +143,14 @@
 
     function applyAtmosphere(elapsed) {
       const t = clamp01(elapsed / TOTAL_DURATION);
-      const glow = GLOW_MAX * Math.sin(Math.PI * t);
       const blur = BLUR_FROM * (1 - t);
 
-      if (glow < 0.01 && blur < 0.01) {
+      if (blur < 0.01) {
         logoSvg.style.filter = 'none';
         return;
       }
 
-      logoSvg.style.filter = [
-        `blur(${blur.toFixed(3)}px)`,
-        `drop-shadow(0 0 ${(glow * 0.5).toFixed(3)}px rgba(255,255,255,0.78))`,
-        `drop-shadow(0 0 ${glow.toFixed(3)}px rgba(255,255,255,0.95))`
-      ].join(' ');
+      logoSvg.style.filter = `blur(${blur.toFixed(3)}px)`;
     }
 
     // ── animation loop ────────────────────────────────────────────────────────
