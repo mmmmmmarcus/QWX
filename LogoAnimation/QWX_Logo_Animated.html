@@ -15,6 +15,8 @@
     #logo-svg {
       width: 198px;
       height: 240px;
+      overflow: visible;
+      will-change: transform, filter;
     }
   </style>
 </head>
@@ -64,8 +66,10 @@
     const starWrapper = document.getElementById('starWrapper');
 
     // Overall scale animation: starts large, settles to 1×
-    const SCALE_FROM  = 1.5;
-    const TOTAL_DURATION = 1100 + 500; // keep in sync with RING + STAR
+    const SCALE_FROM  = 1.72;
+    const TOTAL_DURATION = 2000 + 1000; // keep in sync with RING + STAR
+    const GLOW_MAX = 10;
+    const BLUR_FROM = 7;
 
     // Visual centre of the ring's circular arc (pivot for the clock-wipe)
     const CX = 33;
@@ -79,9 +83,9 @@
     const STAR_CX = 40;
     const STAR_CY = 56.5;
 
-    // Timing (total ≤ 2 000 ms)
-    const RING_DURATION = 1100; // ms
-    const STAR_DURATION =  500; // ms
+    // Timing
+    const RING_DURATION = 2000; // ms
+    const STAR_DURATION = 1000; // ms
 
     // ── easing helpers ────────────────────────────────────────────────────────
     function easeInOut(t) {
@@ -93,6 +97,9 @@
     }
     function easeOutQuart(t) {
       return 1 - Math.pow(1 - t, 4);
+    }
+    function clamp01(t) {
+      return Math.max(0, Math.min(t, 1));
     }
 
     // ── sector path builder ───────────────────────────────────────────────────
@@ -127,11 +134,29 @@
     sweepSector.setAttribute('d', sectorPath(CX, CY, R, START_ANGLE_DEG, 0.001));
     applyStarTransform(0, 3);
     logoSvg.style.transform = `scale(${SCALE_FROM})`;
+    applyAtmosphere(0);
 
     function applyLogoScale(elapsed) {
       const tScale = easeOutQuart(Math.min(elapsed / TOTAL_DURATION, 1));
       const s = SCALE_FROM - (SCALE_FROM - 1) * tScale;
       logoSvg.style.transform = `scale(${s.toFixed(5)})`;
+    }
+
+    function applyAtmosphere(elapsed) {
+      const t = clamp01(elapsed / TOTAL_DURATION);
+      const glow = GLOW_MAX * Math.sin(Math.PI * t);
+      const blur = BLUR_FROM * (1 - t);
+
+      if (glow < 0.01 && blur < 0.01) {
+        logoSvg.style.filter = 'none';
+        return;
+      }
+
+      logoSvg.style.filter = [
+        `blur(${blur.toFixed(3)}px)`,
+        `drop-shadow(0 0 ${(glow * 0.5).toFixed(3)}px rgba(255,255,255,0.78))`,
+        `drop-shadow(0 0 ${glow.toFixed(3)}px rgba(255,255,255,0.95))`
+      ].join(' ');
     }
 
     // ── animation loop ────────────────────────────────────────────────────────
@@ -143,6 +168,7 @@
 
       // Overall scale-down runs across the full animation
       applyLogoScale(elapsed);
+      applyAtmosphere(elapsed);
 
       if (elapsed < RING_DURATION) {
         // Phase 1 — ring sweep + opacity 0 → 1
@@ -170,6 +196,7 @@
           // Done
           applyStarTransform(1, 0);
           logoSvg.style.transform = 'scale(1)';
+          logoSvg.style.filter = 'none';
         }
       }
     }
