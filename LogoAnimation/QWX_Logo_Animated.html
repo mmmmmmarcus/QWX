@@ -94,6 +94,9 @@
       const c1 = 1.70158, c3 = c1 + 1;
       return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
     }
+    function easeInOutSine(t) {
+      return -(Math.cos(Math.PI * t) - 1) / 2;
+    }
     function easeOutQuart(t) {
       return 1 - Math.pow(1 - t, 4);
     }
@@ -167,7 +170,7 @@
       if (elapsed < RING_DURATION) {
         // Phase 1 — ring sweep + opacity 0 → 1
         const progress = Math.min(elapsed / RING_DURATION, 1);
-        const sweepT = easeOutQuart(progress);
+        const sweepT = easeInOutSine(progress);
         const opacityT = Math.pow(progress, 1.65);
         const sweep = sweepT * 360;
         sweepSector.setAttribute('d', sectorPath(CX, CY, R, START_ANGLE_DEG, sweep));
