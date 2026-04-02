@@ -166,9 +166,10 @@
 
       if (elapsed < RING_DURATION) {
         // Phase 1 — ring sweep + opacity 0 → 1
-        const t     = easeInOut(Math.min(elapsed / RING_DURATION, 1));
-        const sweep = t * 360;
-        const opacityT = Math.pow(t, 1.65);
+        const progress = Math.min(elapsed / RING_DURATION, 1);
+        const sweepT = easeOutQuart(progress);
+        const opacityT = Math.pow(progress, 1.65);
+        const sweep = sweepT * 360;
         sweepSector.setAttribute('d', sectorPath(CX, CY, R, START_ANGLE_DEG, sweep));
         ring.setAttribute('opacity', opacityT.toFixed(4));
         applyStarTransform(0, 3);
