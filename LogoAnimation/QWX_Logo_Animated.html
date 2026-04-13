@@ -12,17 +12,37 @@
       align-items: center;
       min-height: 100vh;
     }
+    .logo-lockup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
     #logo-svg {
-      width: 198px;
-      height: 240px;
+      width: 280px;
+      height: 339.39px;
       overflow: visible;
       will-change: transform, filter;
+    }
+    .logo-wordmark {
+      display: block;
+      height: 56px;
+      width: auto;
+      opacity: 0;
+      transform: translateY(12px);
+      transition:
+        opacity 900ms ease,
+        transform 1200ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .logo-wordmark.is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
-
-  <svg id="logo-svg" viewBox="0 0 66 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <div class="logo-lockup">
+    <svg id="logo-svg" viewBox="0 0 66 80" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <clipPath id="clip0_3230_5337">
         <rect width="65.423" height="80" fill="white"/>
@@ -57,13 +77,16 @@
       </g>
 
     </g>
-  </svg>
+    </svg>
+    <img id="logo-wordmark" class="logo-wordmark" src="./QWX_Text.svg" alt="QWX">
+  </div>
 
   <script>
     const logoSvg     = document.getElementById('logo-svg');
     const sweepSector = document.getElementById('sweepSector');
     const ring        = document.getElementById('ring');
     const starWrapper = document.getElementById('starWrapper');
+    const logoWordmark = document.getElementById('logo-wordmark');
 
     // Overall scale animation: starts large, settles to 1×
     const SCALE_FROM  = 2.4;
@@ -87,15 +110,12 @@
     const STAR_DURATION = 800; // ms
 
     // ── easing helpers ────────────────────────────────────────────────────────
-    function easeInOut(t) {
-      return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-    }
     function easeOutBack(t) {
       const c1 = 1.70158, c3 = c1 + 1;
       return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
     }
-    function easeInOutSine(t) {
-      return -(Math.cos(Math.PI * t) - 1) / 2;
+    function easeOutSine(t) {
+      return Math.sin((t * Math.PI) / 2);
     }
     function easeOutQuart(t) {
       return 1 - Math.pow(1 - t, 4);
@@ -156,6 +176,13 @@
       logoSvg.style.filter = `blur(${blur.toFixed(3)}px)`;
     }
 
+    function revealWordmark() {
+      if (logoWordmark.classList.contains('is-visible')) return;
+      requestAnimationFrame(() => {
+        logoWordmark.classList.add('is-visible');
+      });
+    }
+
     // ── animation loop ────────────────────────────────────────────────────────
     let startTime = null;
 
@@ -170,11 +197,10 @@
       if (elapsed < RING_DURATION) {
         // Phase 1 — ring sweep + opacity 0 → 1
         const progress = Math.min(elapsed / RING_DURATION, 1);
-        const sweepT = easeInOutSine(progress);
-        const opacityT = Math.pow(progress, 1.65);
-        const sweep = sweepT * 360;
+        const revealT = easeOutSine(progress);
+        const sweep = revealT * 360;
         sweepSector.setAttribute('d', sectorPath(CX, CY, R, START_ANGLE_DEG, sweep));
-        ring.setAttribute('opacity', opacityT.toFixed(4));
+        ring.setAttribute('opacity', revealT.toFixed(4));
         applyStarTransform(0, 3);
         requestAnimationFrame(frame);
 
@@ -196,6 +222,7 @@
           applyStarTransform(1, 0);
           logoSvg.style.transform = 'scale(1)';
           logoSvg.style.filter = 'none';
+          revealWordmark();
         }
       }
     }
